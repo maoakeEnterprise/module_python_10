@@ -56,4 +56,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"Type Error: {e.__class__.__name__}")
+        print(f"Message Error: {e}")
