@@ -59,22 +59,31 @@ def conditional(string: Any):
 
 
 def main() -> None:
+    test_values = [5, 15, 8]
+    test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
+    test_targets1 = ['Dragon', 'Goblin', {'gogo'},
+                     {'go': 23}, 'Wizard', 'Knight', 23]
+
     print("\nTesting spell combiner...")
-    combined = spell_combiner(fireball, heal)
-    sp1, sp2 = combined(target="enemy")
-    print(f"Combined spell result: {sp1}, {sp2}")
+    for target in test_targets:
+        combined = spell_combiner(fireball, heal)
+        sp1, sp2 = combined(target=target)
+        print(f"Combined spell result: {sp1}, {sp2}")
 
     print("\nTesting amplifier: ")
-    amplified = power_amplifier(base_spell, 3)
-    print(f"Spell amplified dmg or heal: {amplified('zxc')}")
+    for value in test_values:
+        amplified = power_amplifier(base_spell, value)
+        print(f"Spell amplified dmg or heal: {amplified('Fireball')}")
 
     print("\nTesting conditional")
     conditioned = conditional_caster(conditional, fireball)
-    print(conditioned("Enemy"))
+    for target in test_targets1:
+        print(conditioned(target))
 
     print("\n Testing sequenced")
     sequenced = spell_sequence([fireball, heal])
-    print(sequenced("test"))
+    for target in test_targets:
+        print(sequenced(target))
 
 
 if __name__ == "__main__":
