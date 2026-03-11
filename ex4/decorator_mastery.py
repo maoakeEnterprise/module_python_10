@@ -23,7 +23,7 @@ def power_validator(min_power: int) -> Callable:
             if kwargs["power"] >= min_power:
                 return func(*args, **kwargs)
             else:
-                print("Insufficient power for this spell")
+                return ("Insufficient power for this spell")
         return wrapper
     return validator
 
@@ -80,7 +80,7 @@ def test_spell(nb: int):
 
 
 def main() -> None:
-    test_powers = [26, 27, 14, 16]
+    test_powers = [26, 27, 7, 16]
     spell_names = ['lightning', 'flash', 'freeze', 'heal']
     mage_names = ['River', 'Alex', 'Rowan', 'Zara', 'Ash', 'Sage']
     invalid_names = ['Jo', 'A', 'Alex123', 'Test@Name']
