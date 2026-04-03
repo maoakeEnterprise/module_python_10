@@ -34,7 +34,7 @@ def memoized_fibonacci(n: int) -> int:
     return (memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2))
 
 
-def spell_dispatcher() -> callable:
+def spell_dispatcher() -> Callable:
 
     @singledispatch
     def anyfunc(value: Any) -> None:

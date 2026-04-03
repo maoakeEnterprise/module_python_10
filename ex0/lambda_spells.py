@@ -17,7 +17,8 @@ def mage_stats(mages: list[dict]) -> dict:
     return {
         "max_power": max(mages, key=lambda x: x["power"])["power"],
         "min_power": min(mages, key=lambda x: x["power"])["power"],
-        "avg_power": sum(map(lambda x: x["power"], mages)) / len(mages)
+        "avg_power": round(
+            sum(map(lambda x: x["power"], mages)) / len(mages), 2)
     }
 
 
@@ -47,12 +48,12 @@ def main() -> None:
     print(f"There is {len(res)} mages upper to {min_p}")
 
     print("\nTesting spell transformer..............")
-    res = spell_transformer(spells)
-    print(res)
+    res1 = spell_transformer(spells)
+    print(res1)
 
     print("\nTesting mage stats............;;;.......")
-    res = mage_stats(mages)
-    print(res)
+    res2 = mage_stats(mages)
+    print(res2)
 
 
 if __name__ == "__main__":

@@ -41,7 +41,7 @@ def heal(target: str) -> str:
     return f"Heal {target}"
 
 
-def base_spell(spell: str):
+def base_spell(spell: str) -> Any:
     spells = {
         "Fireball": 10,
         "Bolted": 7,
@@ -52,7 +52,7 @@ def base_spell(spell: str):
     return spells[spell]
 
 
-def conditional(string: Any):
+def conditional(string: Any) -> bool:
     if isinstance(string, str):
         return True
     return False

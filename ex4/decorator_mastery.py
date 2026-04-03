@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Any
 from functools import wraps
 import time
 import random
@@ -19,7 +19,7 @@ def power_validator(min_power: int) -> Callable:
 
     def validator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> None:
+        def wrapper(*args, **kwargs) -> Any:
             if kwargs["power"] >= min_power:
                 return func(*args, **kwargs)
             else:
