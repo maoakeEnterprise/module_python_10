@@ -61,8 +61,8 @@ def conditional(string: Any) -> bool:
 def main() -> None:
     test_values = [5, 15, 8]
     test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
-    test_targets1 = ['Dragon', 'Goblin', {'gogo'},
-                     {'go': 23}, 'Wizard', 'Knight', 23]
+    test_targets1: list[Any] = ['Dragon', 'Goblin', {'gogo'},
+                                {'go': 23}, 'Wizard', 'Knight', 23]
 
     print("\nTesting spell combiner...")
     for target in test_targets:
