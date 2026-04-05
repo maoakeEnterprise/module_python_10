@@ -11,7 +11,7 @@ def spell_timer(func: Callable) -> Callable:
         print(f"Casting {func.__name__}:\n")
         t = time.time()
         func(*args, **kwargs)
-        print(f"\nSpell completed in {(time.time() - t):.8f} s")
+        print(f"\nSpell completed in {(time.time() - t):.3f} s")
     return measure_time
 
 
