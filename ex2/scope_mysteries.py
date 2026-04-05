@@ -24,9 +24,9 @@ def spell_accumulator(initial_power: int) -> Callable:
 def enchantment_factory(enchantment_type: str) -> Callable:
     enchant = enchantment_type
 
-    def item_enchanted(item: str) -> str:
+    def item_enchanted(item_name: str) -> str:
         nonlocal enchant
-        return f"{enchant} {item}"
+        return f"{enchant} {item_name}"
     return item_enchanted
 
 
@@ -66,14 +66,14 @@ def main() -> None:
     for enchant in enchantment_types:
         f = enchantment_factory(enchant)
         for item in items_to_enchant:
-            print(f"Enchanted item{f(item)}")
+            print(f"Enchanted item {f(item)}")
 
     print("\n Testing my vault: ")
     dict_f = memory_vault()
     for i in range(0, len(initial_powers)):
         dict_f["stores"](enchantment_types[i], initial_powers[i])
     for key in enchantment_types:
-        print(f"vaulted: {dict_f['recall'](key)}")
+        print(f" {key} -> vaulted: {dict_f['recall'](key)}")
 
 
 if __name__ == "__main__":
