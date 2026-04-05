@@ -1,4 +1,4 @@
-from typing import Callable, Any
+from typing import Callable
 
 
 def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
@@ -11,8 +11,8 @@ def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
 
 def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
     def amplified(*args, **kwargs) -> int:
+        kwargs["power"] *= multiplier
         res = base_spell(*args, **kwargs)
-        res *= multiplier
         return res
     return amplified
 
@@ -33,57 +33,54 @@ def spell_sequence(spells: list[Callable]) -> Callable:
     return sequenced
 
 
-def fireball(target: str) -> str:
-    return f"Fire Power {target}"
+def fireball(target: str, power: int) -> str:
+    return f"Fire Power {target} for {power} DMG"
 
 
-def heal(target: str) -> str:
-    return f"Heal {target}"
+def heal(target: str, power: int) -> str:
+    return f"Heal {target} for {power} HP"
 
 
-def base_spell(spell: str) -> Any:
-    spells = {
-        "Fireball": 10,
-        "Bolted": 7,
-        "heal": 3
-    }
-    if spell not in [key for key in spells.keys()]:
-        return 0
-    return spells[spell]
-
-
-def conditional(string: Any) -> bool:
-    if isinstance(string, str):
-        return True
-    return False
+def conditional(target: str, power: int) -> bool:
+    if target == "DRAGON" or power == 2:
+        return False
+    return True
 
 
 def main() -> None:
-    test_values = [5, 15, 8]
+    amplified_data = {
+        "GOBLIN": 4,
+        "DRAGON": 2,
+        "FISHER": 1,
+    }
     test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
-    test_targets1: list[Any] = ['Dragon', 'Goblin', {'gogo'},
-                                {'go': 23}, 'Wizard', 'Knight', 23]
+    conditional_data = {
+        "DRAGON": 4,
+        "GOBLIN": 2,
+        "WIZZARD": 6,
+        "POOP": 4562
+    }
 
     print("\nTesting spell combiner...")
     for target in test_targets:
         combined = spell_combiner(fireball, heal)
-        sp1, sp2 = combined(target=target)
+        sp1, sp2 = combined(target=target, power=3)
         print(f"Combined spell result: {sp1}, {sp2}")
 
     print("\nTesting amplifier: ")
-    for value in test_values:
-        amplified = power_amplifier(base_spell, value)
-        print(f"Spell amplified dmg or heal: {amplified('Fireball')}")
+    for k, v in amplified_data.items():
+        amplified = power_amplifier(fireball, v)
+        print(amplified(target=k, power=3))
 
     print("\nTesting conditional")
     conditioned = conditional_caster(conditional, fireball)
-    for target in test_targets1:
-        print(conditioned(target))
+    for k, v in conditional_data.items():
+        print(conditioned(target=k, power=v))
 
     print("\n Testing sequenced")
     sequenced = spell_sequence([fireball, heal])
     for target in test_targets:
-        print(sequenced(target))
+        print(sequenced(target=target, power=3))
 
 
 if __name__ == "__main__":
