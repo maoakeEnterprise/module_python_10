@@ -5,6 +5,12 @@ import operator
 
 def spell_reducer(spells: list[int], operation: str) -> int:
     res = 0
+    if not isinstance(spells, list):
+        raise TypeError("spells not the good type sorry brother")
+    if len(spells) == 0:
+        return 0
+    if not isinstance(spells[0], int):
+        raise TypeError("Spells not the good type sorry brother")
     if operation == "add":
         res = reduce(operator.add, spells)
     elif operation == "multiply":
@@ -17,9 +23,9 @@ def spell_reducer(spells: list[int], operation: str) -> int:
 
 
 def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
-    fire = partial(base_enchantment, enchant=154)
-    lightning = partial(base_enchantment, enchant=120)
-    ice = partial(base_enchantment, enchant=140)
+    fire = partial(base_enchantment, power=50, element="fire")
+    lightning = partial(base_enchantment, power=50, element="lightning")
+    ice = partial(base_enchantment, power=50, element="ice")
     return {
         "fire_enchant": fire,
         "ice_enchant": ice,
@@ -55,8 +61,8 @@ def spell_dispatcher() -> Callable:
     return anyfunc
 
 
-def base_enchant(power: int, enchant: int) -> int:
-    return power + enchant
+def base_enchant(power: int, element: str, target: str) -> str:
+    return f"Element {element} -> Power {power}, --> {target}"
 
 
 def main() -> None:
@@ -73,7 +79,7 @@ def main() -> None:
     print("\nTestin partial enchanter: ")
     enchant_spell = partial_enchanter(base_enchant)
     for key in enchant:
-        print(f"{key} -> {enchant_spell[key](50)}")
+        print(f"{key} -> {enchant_spell[key](target="GOBLIN")}")
 
     print("\nTesting fibo: ")
     for test in fibonacci_tests:
