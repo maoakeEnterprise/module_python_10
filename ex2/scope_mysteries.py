@@ -25,7 +25,6 @@ def enchantment_factory(enchantment_type: str) -> Callable:
     enchant = enchantment_type
 
     def item_enchanted(item_name: str) -> str:
-        nonlocal enchant
         return f"{enchant} {item_name}"
     return item_enchanted
 
@@ -34,11 +33,9 @@ def memory_vault() -> dict[str, Callable]:
     store: dict = {}
 
     def stores(key: str, value: Any) -> None:
-        nonlocal store
         store.update({key: value})
 
     def recall(key: str) -> Any:
-        nonlocal store
         if key not in {key for key in store.keys()}:
             return "Memory not found"
         return store[key]
